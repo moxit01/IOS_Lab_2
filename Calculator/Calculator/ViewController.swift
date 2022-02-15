@@ -3,6 +3,7 @@
 //  Calculator
 //
 //  Created by Moxit Shah on 15/02/22.
+/* App icon used from :https://www.reddit.com/r/Rainbow6/comments/j0eeau/for_anyone_trying_to_make_new_app_icons_i_present/  */
 //
 
 import UIKit
@@ -33,15 +34,6 @@ class ViewController: UIViewController
         caloperation.text = operation
     }
     
-
-    
-    @IBAction func equals(_ sender: Any) {
-        let expression = NSExpression(format: operation)
-        let result = expression.expressionValue(with: nil, context: nil) as! Double
-        let resultString = formatResult(result: result)
-        calresults.text = resultString
-    }
-    
     func formatResult(result: Double) -> String
     {
         if(result.truncatingRemainder(dividingBy: 1) == 0)
@@ -53,6 +45,17 @@ class ViewController: UIViewController
             return String(format: "%.2f", result)
         }
     }
+    
+
+    
+    @IBAction func equals(_ sender: Any) {
+        let expression = NSExpression(format: operation)
+        let result = expression.expressionValue(with: nil, context: nil) as! Double
+        let resultString = formatResult(result: result)
+        calresults.text = resultString
+    }
+    
+    
     
     @IBAction func AllClear(_ sender: Any)
     {
