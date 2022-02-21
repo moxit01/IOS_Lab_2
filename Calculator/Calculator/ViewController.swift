@@ -10,6 +10,10 @@ import UIKit
 
 class ViewController: UIViewController
 {
+    var value: Double=0
+    var operation:String = ""
+    
+    //caloperation and cal result for the displaying the calculator operation and result respectively.
     
     @IBOutlet weak var caloperation: UILabel!
     @IBOutlet weak var calresults: UILabel!
@@ -21,19 +25,50 @@ class ViewController: UIViewController
         clear()
     }
     
-    var operation:String = ""
     
+    
+    //clear  function
     func clear(){
         operation = ""
         caloperation.text = ""
         calresults.text = ""
     }
     
-    func addoperations(value: String){
-        operation = operation + value
-        caloperation.text = operation
+    // all clear function
+    @IBAction func AllClear(_ sender: Any)
+    {
+        clear()
     }
     
+    // backspacing keyword.
+    @IBAction func back(_ sender: Any)
+    {
+        if (!operation.isEmpty){
+            operation.removeLast()
+            caloperation.text = operation
+        }
+    }
+    
+    
+    //func for add, divide, subtract, multiply
+    func addoperations(value: String){
+        if (operation != "/" && operation != "*" && operation != "%"){
+        operation = operation + value
+        caloperation.text = operation
+        }
+    }
+    
+    
+    // Equal action
+    @IBAction func equals(_ sender: Any)
+    {
+        let expression = NSExpression(format: operation)
+        let result = expression.expressionValue(with: nil, context: nil) as! Double
+        let resultString = formatResult(result: result)
+        calresults.text = resultString
+    }
+    
+    //converting result to double or float
     func formatResult(result: Double) -> String
     {
         if(result.truncatingRemainder(dividingBy: 1) == 0)
@@ -46,28 +81,75 @@ class ViewController: UIViewController
         }
     }
     
-
     
-    @IBAction func equals(_ sender: Any) {
-        let expression = NSExpression(format: operation)
-        let result = expression.expressionValue(with: nil, context: nil) as! Double
-        let resultString = formatResult(result: result)
-        calresults.text = resultString
-    }
-    
-    
-    
-    @IBAction func AllClear(_ sender: Any)
+    // sin trignometry function
+    @IBAction func sinval(_ sender: Any)
     {
-        clear()
-    }
-    @IBAction func back(_ sender: Any)
-    {
-        if (!operation.isEmpty){
-            operation.removeLast()
-            caloperation.text = operation
+        let calvalue = caloperation.text
+        if (calvalue == "")
+        {
+            calresults.text = "write num then trig"
+        }
+        else
+        {
+            value = Double(caloperation.text!)!
+            calresults.text = String(sin(value*Double.pi/180))
         }
     }
+
+    // cos trignometry function
+    @IBAction func cosval(_ sender: Any)
+    {
+        let calvalue = caloperation.text
+        if (calvalue == "")
+        {
+            calresults.text = "write num then trig"
+        }
+        else
+        {
+            value = Double(caloperation.text!)!
+            calresults.text = String(cos(value*Double.pi/180))
+        }
+        
+    }
+    
+    // tan trignometry function
+    @IBAction func tanval(_ sender: Any)
+    {
+        let calvalue = caloperation.text
+        if (calvalue == "")
+        {
+            calresults.text = "write num then trig"
+        }
+        else
+        {
+            value = Double(caloperation.text!)!
+            calresults.text = String(tan(value*Double.pi/180))
+        }
+        
+    }
+
+    //square trignometry function
+    @IBAction func squareroot(_ sender: Any)
+    {
+        value = Double(caloperation.text!)!
+        calresults.text = String(sqrt(value))
+        
+    }
+    
+    //cuberoot trignometry function
+    @IBAction func cuberoot(_ sender: Any)
+    {
+        value = Double(caloperation.text!)!
+        let cube = pow(value, 1/3)
+        calresults.text = String(cube)
+        
+    }
+    
+   
+    // all number and operation functions
+    
+    
     @IBAction func percent(_ sender: Any)
     {
         addoperations(value: "%")
