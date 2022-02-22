@@ -27,6 +27,7 @@ class ViewController: UIViewController
     
     
     
+    
     //clear  function
     func clear(){
         operation = ""
@@ -52,9 +53,13 @@ class ViewController: UIViewController
     
     //func for add, divide, subtract, multiply
     func addoperations(value: String){
-        if (operation != "/" && operation != "*" && operation != "%"){
-        operation = operation + value
-        caloperation.text = operation
+        if (operation != "/" && operation != "*" && operation != "%")
+        {
+                operation = operation + value
+                caloperation.text = operation
+        }
+        else{
+            calresults.text = "Error"
         }
     }
     
@@ -132,28 +137,52 @@ class ViewController: UIViewController
     //square trignometry function
     @IBAction func squareroot(_ sender: Any)
     {
-        value = Double(caloperation.text!)!
-        calresults.text = String(sqrt(value))
+        let calvalue = caloperation.text
+        if (calvalue == "")
+        {
+            calresults.text = "write num then ln"
+        }
+        else
+        {   value = Double(caloperation.text!)!
+            calresults.text = String(sqrt(value))
+        }
         
     }
     
     //cuberoot trignometry function
     @IBAction func cuberoot(_ sender: Any)
     {
-        value = Double(caloperation.text!)!
-        let cube = pow(value, 1/3)
-        calresults.text = String(cube)
+        let calvalue = caloperation.text
+        if (calvalue == "")
+        {
+            calresults.text = "write num then ln"
+        }
+        else
+        {   value = Double(caloperation.text!)!
+            let cube = pow(value, 1/3)
+            calresults.text = String(cube)
+        }
         
     }
     
-   
-    // all number and operation functions
-    
-    
-    @IBAction func percent(_ sender: Any)
+    //log function
+    @IBAction func log10(_ sender: Any)
     {
-        addoperations(value: "%")
+        let calvalue = caloperation.text
+        if (calvalue == "")
+        {
+            calresults.text = "write num then ln"
+        }
+        else
+        {
+        value = Double(caloperation.text!)!
+        calresults.text = String(log(value))
+        }
     }
+   
+    
+    
+    // all number and operation functions
     @IBAction func addition(_ sender: Any)
     {
         addoperations(value: "+")
